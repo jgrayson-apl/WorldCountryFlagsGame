@@ -1,0 +1,257 @@
+html,
+body {
+  margin                   : 0;
+  padding                  : 0;
+  width                    : 100%;
+  height                   : 100%;
+  font-size                : 100%;
+  -webkit-text-size-adjust : 100%;
+  -moz-text-size-adjust    : 100%;
+  -ms-text-size-adjust     : 100%;
+  overflow                 : hidden;
+}
+
+body * {
+  outline : none;
+}
+
+.configurable-application--loading {
+  text-align : center;
+  display    : block;
+  height     : 100%;
+  width      : 100%;
+  overflow   : hidden;
+  background : #fff url(../assets/loader-ie9.gif) no-repeat center center;
+}
+
+#header-panel {
+  z-index    : 99;
+  box-shadow : 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#main-container {
+  height         : calc(100vh - 100px);
+  display        : flex;
+  flex-direction : row;
+}
+
+#options-panel {
+  flex-shrink    : 0;
+  flex-grow      : 0;
+  display        : flex;
+  flex-direction : column;
+  overflow-y     : auto;
+}
+
+#game-panel {
+  flex-shrink    : 0;
+  flex-grow      : 0;
+  display        : flex;
+  flex-direction : column;
+  overflow-x     : hidden;
+  overflow-y     : auto;
+}
+
+#share-panel {
+  flex-shrink : 0;
+  flex-grow   : 0;
+}
+
+.clearfix {
+  clear : both;
+}
+
+#main-bottom-container {
+  flex-shrink    : 1;
+  flex-grow      : 1;
+  display        : flex;
+  flex-direction : column;
+}
+
+#flags-panel {
+  height         : 100px;
+  flex-shrink    : 0;
+  flex-grow      : 0;
+  display        : flex;
+  flex-direction : row;
+  align-content  : space-around;
+}
+
+#flags-panel:empty {
+  font-size  : 1.25rem;
+  font-style : italic;
+  color      : #eee;
+  background : #56a5d8 url(../assets/loader-ie9.gif) no-repeat center center;
+}
+
+#flags-panel:empty:after {
+  content : "Loading country flags...";
+}
+
+.panel-disabled {
+  /*-moz-user-select : none;*/
+  cursor         : wait;
+  pointer-events : none !important;
+}
+
+.panel-disabled .country-flag {
+  opacity : 0.6;
+}
+
+.country-attempt-wrong {
+  pointer-events : none !important;
+}
+
+.country-attempt-wrong .country-flag {
+  opacity    : 0.2;
+  box-shadow : none;
+}
+
+.country-attempt-wrong .country-rank {
+  background-color : #af0000;
+  border           : solid 1px darksalmon;
+}
+
+.country-panel {
+  user-select : none;
+  flex-shrink : 1;
+  flex-grow   : 1;
+  position    : relative;
+}
+
+.country-flag {
+  cursor     : pointer;
+  /*max-width: 150px;*/
+  height     : 75px;
+  box-shadow : 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.country-name {
+  user-select    : none;
+  pointer-events : none;
+  position       : absolute;
+  right          : 15px;
+  top            : 15px;
+  color          : #fff;
+  background     : rgba(0, 121, 193, 0.6);
+  padding        : 2px 4px;
+  text-shadow    : 0 1px 2px rgba(0, 0, 0, 0.3);
+  font-size      : 9pt;
+}
+
+.country-rank {
+  user-select      : none;
+  pointer-events   : none;
+  position         : absolute;
+  top              : 5px;
+  left             : 5px;
+  width            : 1.5em;
+  height           : 1.5em;
+  text-align       : center;
+  font-weight      : bold;
+  color            : #fff;
+  background-color : #0079c1;
+  border           : solid 1px #56a5d8;
+  border-radius    : 1em;
+  box-shadow       : 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#view-container {
+  flex-shrink : 1;
+  flex-grow   : 1;
+  margin      : 0;
+  padding     : 0;
+  box-shadow  : 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+#user-thumb-node {
+  height         : 36px;
+  border-radius  : 18px;
+  vertical-align : middle;
+}
+
+.top-nav-link:hover, .top-nav-link:focus {
+  color               : #fff;
+  border-bottom-color : #fff;
+}
+
+.esri-widget--button {
+  color            : #fff !important;
+  background-color : #56a5d8 !important;
+}
+
+.drawer-nav {
+  width : 350px;
+}
+
+.view-loading-node {
+  box-shadow : none !important;
+}
+
+.view-loading-node .loader-text {
+  color       : #0079c1;
+  padding-top : 3em !important;
+}
+
+.tab-section {
+  min-height : 30vh;
+  max-height : 80vh;
+  overflow   : auto;
+}
+
+.scores-table {
+  min-height : 150px;
+}
+
+.scores-table th {
+  text-align : center;
+}
+
+.scores-table .field-user {
+  width : 225px;
+}
+
+.scores-table .field-theme {
+  width : 150px;
+}
+
+.scores-table .field-left {
+  text-align : left;
+}
+
+.scores-table .field-center {
+  text-align : center;
+}
+
+.scores-table .field-right {
+  text-align : right;
+}
+
+.details-panel {
+  display         : flex;
+  flex-direction  : row;
+  justify-content : space-around;
+}
+
+.detail-panel {
+  flex-grow   : 1;
+  flex-shrink : 1;
+  flex-basis  : 33%;
+}
+
+.at-share-tbx-element .at-share-btn {
+  margin : 3px 5px 0 0 !important;
+}
+
+.addthis_inline_share_toolbox_vx4b table {
+  margin-bottom : 0 !important;
+}
+
+.dojoDndAvatarHeader {
+  display : none !important;
+}
+
+#view-container .country-node {
+  display : none !important;
+}
+

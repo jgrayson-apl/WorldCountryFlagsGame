@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <!-- Responsive -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <!-- End Responsive -->
+    <link rel=icon href="./assets/favicon.ico" sizes="32x32" type="image/vnd.microsoft.icon">
+    <link rel="stylesheet" href="https://s3-us-west-1.amazonaws.com/patterns.esri.com/files/calcite-web/1.2.4/css/calcite-web.min.css">
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
+    <script src="./app/dojo.js"></script>
+    <script src="https://js.arcgis.com/4.10/"></script>
+    <script>require(["Application/init"]);</script>
+    <script src="app/dojo.js"></script>
+  </head>
+  <body class="configurable-application--loading">
+
+    <!-- DETAILS -->
+    <div class="js-modal modal-overlay" data-modal="app-details-dialog">
+      <div class="modal-content column-14" aria-labelledby="modal" role="dialog">
+        <span class="js-modal-toggle esri-interactive icon-ui-close right" aria-label="close-modal"></span>
+        <h3 class="trailer-half text-blue">The World Country Flags Game</h3>
+        <div class="panel trailer-half">
+          Drag a flag onto the map and drop it over the corresponding country. Your score will change based on the points assigned to each flag.
+          The game will finish after 10 incorrect guesses or when there are no more flags available.
+          <span class="avenir-italic">Note: this game is designed for use with newer versions of these browsers: Chrome, Firefox, Edge, and Safari.</span>
+        </div>
+
+        <div class="padding-left-1">
+          This application uses information from the following sources:
+          <ul class="list-numbered padding-left-1">
+            <li>
+              Wikipedia -
+              <a href="https://en.wikipedia.org/wiki/Gallery_of_sovereign_state_flags" target="_blank">Gallery of sovereign state flags</a>
+            </li>
+            <li>
+              Esri Living Atlas -
+              <a href="https://www.arcgis.com/home/item.html?id=2b93b06dc0dc4e809d3c8db5cb96ba69" target="_blank">World Countries Feature Layer</a>
+            </li>
+            <li>
+              Esri Living Atlas -
+              <a href="https://www.arcgis.com/home/item.html?id=1c365daf37a744fbad748b67aa69dac8" target="_blank">Charted Territory Basemap</a>
+            </li>
+          </ul>
+        </div>
+
+        <img src="./assets/esri_science_of_where.png" class="left">
+        <div class="text-right">
+          <button class="btn js-modal-toggle">OK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- SAVE SCORE -->
+    <div class="js-modal modal-overlay" data-modal="save-score-dialog">
+      <div class="modal-content column-10" aria-labelledby="modal" role="dialog">
+        <span class="js-modal-toggle esri-interactive icon-ui-close right" aria-label="close-modal"></span>
+        <h3 class="trailer-half text-blue">The World Country Flags Game</h3>
+        <div class="panel trailer-half">
+
+          <div id="saving-label" class="font-size-2">Saving your score...</div>
+
+          <div id="sharing-node" class="hide">
+            <div class="font-size-0 text-center trailer-half">Your score has been saved to the official<br>'The World Country Flags Game' scoreboard.
+            </div>
+            <div class="font-size-1 text-center trailer-half">Share your Top 10 score with others!</div>
+            <div class="margin-left-4">
+              <div id="social_links" class="addthis_inline_share_toolbox_vx4b margin-left-3"></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="panel panel-white panel-no-padding panel-no-border trailer-0">
+          <button class="btn js-modal-toggle right">OK</button>
+          <img src="./assets/esri_science_of_where.png" class="left">
+        </div>
+      </div>
+    </div>
+
+    <!-- GAME COMPLETE -->
+    <div class="js-modal modal-overlay" data-modal="game-scores-dialog">
+      <div id="game-scores-dialog-content" class="modal-content column-18" aria-labelledby="modal" role="dialog">
+        <span class="js-modal-toggle esri-interactive icon-ui-close right" aria-label="close-modal"></span>
+        <h3 class="trailer-half text-blue">The World Country Flags Game</h3>
+
+        <div class="tabs-transparent trailer-half js-tab-group">
+          <nav class="tab-nav">
+            <a class="tab-title is-active js-tab">Top 10 Scores</a>
+            <a id="user-scores-tab-title" class="tab-title js-tab hide">Your Scores</a>
+          </nav>
+          <section class="tab-contents">
+            <article class="tab-section js-tab-section is-active">
+              <table class="scores-table table table-blue trailer-0">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th class="field-user">User</th>
+                    <th>Score</th>
+                    <th>Theme</th>
+                    <th>Attempts</th>
+                    <th>Correct</th>
+                    <th>Wrong</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="top10-scores-list">
+                  <tr>
+                    <td>No scores</td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
+            <article class="tab-section js-tab-section">
+              <table class="scores-table table table-blue trailer-0">
+                <thead>
+                  <tr>
+                    <th>Rank</th>
+                    <th class="field-user">User</th>
+                    <th>Score</th>
+                    <th>Theme</th>
+                    <th>Attempts</th>
+                    <th>Correct</th>
+                    <th>Wrong</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody id="user-scores-list">
+                  <tr>
+                    <td colspan="8">You have no scores yet...</td>
+                  </tr>
+                </tbody>
+              </table>
+            </article>
+          </section>
+        </div>
+
+        <div class="panel panel-white panel-no-padding panel-no-border trailer-0">
+          <button class="btn js-modal-toggle right">OK</button>
+          <img src="./assets/esri_science_of_where.png" class="left">
+        </div>
+      </div>
+    </div>
+
+    <!--  INFO -->
+    <div class="js-modal modal-overlay" data-modal="info-dialog">
+      <div class="modal-content column-12" aria-labelledby="modal" role="dialog">
+        <span class="js-modal-toggle esri-interactive icon-ui-close right" aria-label="close-modal"></span>
+        <h3 class="trailer-half text-blue">The World Country Flags Game</h3>
+        <div class="panel">
+          <div id="info-message" class="font-size-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP NAVIGATION -->
+    <header id="header-panel" class="panel panel-light-blue panel-no-padding panel-no-border padding-left-1 padding-right-1">
+      <!-- APP TITLE -->
+      <span id="app-title-node" class="top-nav-title text-white"></span>
+
+      <nav class="top-nav-list margin-left-4" role="navigation" aria-labelledby="topnav">
+
+        <div id="score-info-node" class="dropdown js-dropdown text-white">
+          <span class="top-nav-link icon-ui-question text-white esri-interactive js-dropdown-toggle margin-right-half" tabindex="0" aria-haspopup="true" aria-expanded="false">scoring & hints</span>
+          <nav class="dropdown-menu dropdown" role="menu">
+            <div class="dropdown-link panel">
+              <div class="font-size--3 trailer-quarter">
+                <div class="avenir-demi">CORRECT</div>
+                <div class="padding-left-1">ranging from 1 to 6, points are displayed above each flag</div>
+              </div>
+              <div class="font-size--3 trailer-quarter">
+                <div class="avenir-demi">WRONG</div>
+                <div class="padding-left-1">
+                  <div>flags worth 1 & 2 points will have 3 points subtracted</div>
+                  <div>flags worth 3 & 4 points will have 2 points subtracted</div>
+                  <div>flags worth 5 & 6 points will have 1 points subtracted</div>
+                </div>
+              </div>
+              <div class="font-size--3 trailer-quarter">
+                <div class="avenir-demi">HINTS</div>
+                <div class="padding-left-1">
+                  country names will be revealed for the first
+                  <span class="text-rule">three</span>
+                  wrong guesses
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+        <span id="scoreboard-link" class="top-nav-link text-white icon-ui-layer-list btn-disabled" title="Display your scores and the Top 10 scoreboard...">scoreboard</span>
+        <span class="top-nav-link text-white icon-ui-save icon-ui-flush" title="Sign in to save your current Top 10 score...">
+          <span id="save-game-link" class="btn-disabled">save score</span>
+        </span>
+        <span id="reset-link" class="top-nav-link text-white icon-ui-refresh btn-disabled">reset game</span>
+      </nav>
+      <!-- RIGHT ALIGNED -->
+      <nav class="top-nav-list right" role="navigation">
+
+        <!-- SOCIAL -->
+        <div id="social-tools" class="top-nav-link margin-right-1" title="Share game with others...">
+          <div class="addthis_inline_share_toolbox" data-title="The World Country Flags Game #esricountryflagsgame"></div>
+        </div>
+
+        <!-- SIGN IN NODE -->
+        <span id="sign-in-node" class="top-nav-link text-white esri-interactive icon-ui-user">Sign In</span>
+
+        <!-- USER NODE -->
+        <div id="user-node" class="dropdown js-dropdown text-white hide">
+          <span class="top-nav-link icon-ui-user text-white esri-interactive js-dropdown-toggle" tabindex="0" aria-haspopup="true" aria-expanded="false">
+            <span id="user-firstname-node"></span>
+          </span>
+          <nav class="dropdown-menu dropdown-right" role="menu">
+            <span class="dropdown-title">
+              <span id="user-fullname-node"></span>
+              <br>
+              <img id="user-thumb-node" src="">
+              <small><span id="username-node"></span></small>
+            </span>
+            <a href="mailto:jgrayson@esri.com?subject=The World Country Flags Game" class="dropdown-link icon-ui-contact" role="menu-item">Feedback</a>
+            <span id="sign-out-node" class="dropdown-link esri-interactive icon-ui-sign-out" role="menu-item">Sign Out</span>
+          </nav>
+        </div>
+
+        <!-- APP DETAILS -->
+        <span class="top-nav-link icon-ui-description text-white js-modal-toggle margin-left-1 esri-interactive" data-modal="app-details-dialog" title="about this app"></span>
+
+      </nav>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <div id="main-container" class="panel">
+
+      <div id="options-panel" class="panel panel-light-blue margin-right-quarter column-6">
+
+        <div class="panel panel-light-blue panel-no-padding panel-no-border text-white font-size--1 trailer-quarter">
+          Drag a flag onto the map and drop it over the corresponding country. Your score will change based on the
+          points assigned to each flag. The game will finish after 10 incorrect guesses or when there are no more
+          flags available.
+          <span class="font-size--3 avenir-italic icon-ui-notice-triangleX">
+            Note: this game is designed for use with newer versions of these browsers: Chrome, Firefox, Edge, and Safari.
+          </span>
+        </div>
+
+        <div class="leader-half">
+          <div class="input-group">
+            <span class="input-group-button">
+              <span class="text-white">Theme&nbsp;</span>
+            </span>
+            <select id="theme-select" class="input-group-input"></select>
+          </div>
+        </div>
+
+        <div id="game-panel" class="leader-1 trailer-0"></div>
+
+        <div id="share-panel" class="panel panel-blue hide">
+          <div id="no-sign-in" class="text-center text-light avenir-italic font-size--2">please sign in to share your score</div>
+          <div id="social-links" class="hide">
+            <div class="text-center">
+              <span class="icon-social-contact" aria-label="Email" title="Email"></span>
+              <span class="icon-social-geonet" aria-label="GeoNet" title="GeoNet"></span>
+              <!--<span class="icon-social-facebook" aria-label="Facebook" title="Facebook"></span>-->
+              <span class="icon-social-twitter" aria-label="Twitter" title="Twitter"></span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div id="main-bottom-container" draggable="false">
+        <div id="flags-panel" draggable="false" class="panel panel-light-blue trailer-quarter"></div>
+        <div id="view-container"></div>
+      </div>
+
+    </div>
+
+    <!-- Go to www.addthis.com/dashboard to customize your tools -->
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5c5c5ae31ef902c3"></script>
+
+  </body>
+
+  <div id="correct-layer-panel" class="panel panel-light-blue hide">
+    <label class="toggle-switch text-white trailer-0">
+      <span class="toggle-switch-label font-size--1">Country Flags Overlay</span>
+      <input id="flag-overlay-input" type="checkbox" checked class="toggle-switch-input">
+      <span class="toggle-switch-track"></span>
+    </label>
+  </div>
+
+</html>
+

@@ -1,0 +1,27 @@
+{
+  "title": "The World Country Flags Game",
+  "appid": "",
+  "group": "",
+  "webmap": "b6fb38de654f45a587c6ebcfda008071",
+  "webscene": "",
+  "portalUrl": "https://www.arcgis.com",
+  "oauthappid": "r9MdUnbzvXig3SCQ",
+  "proxyUrl": "https://apl.esri.com/proxy/DotNet/proxy.ashx",
+  "units": "dual",
+  "helperServices": {
+    "geometry": {
+      "url": null
+    },
+    "printTask": {
+      "url": null
+    },
+    "elevationSync": {
+      "url": null
+    },
+    "geocode": [
+      {
+        "url": null
+      }
+    ]
+  }
+}
